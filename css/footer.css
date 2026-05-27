@@ -1,0 +1,86 @@
+/* =============================================================================
+   footer.css — Site footer
+   ============================================================================= */
+
+.footer {
+  background-color: var(--surface);
+}
+
+.footer__inner {
+  display: grid;
+  gap: 2.5rem;
+  padding-top: 3.5rem;
+  padding-bottom: 3.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .footer__inner {
+    grid-template-columns: 1.5fr 1fr 1fr;
+  }
+}
+
+/* Brand column */
+.footer__brand-name {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  margin-bottom: 0.25rem;
+}
+
+.footer__brand-inst {
+  font-size: 0.875rem;
+  color: var(--fg-muted);
+}
+
+.footer__brand-note {
+  margin-top: 1rem;
+  max-width: 22rem;
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+}
+
+/* Link columns */
+.footer__col-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--fg-muted);
+  margin-bottom: 0.75rem;
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.footer__links a {
+  transition: color 0.12s;
+}
+
+.footer__links a:hover {
+  color: var(--accent);
+}
+
+/* Bottom bar */
+.footer__bar {
+  border-top: 1px solid var(--border);
+}
+
+.footer__bar-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  font-size: 0.75rem;
+  color: var(--fg-muted);
+}
+
+.footer__bar-mono {
+  font-family: var(--font-mono);
+}

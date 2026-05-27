@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OCaml Case Studies</title>
+  <meta name="description"
+        content="Case studies for the translation pipeline from OCaml + GOSPEL to COMA." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,450;0,9..144,500;1,9..144,450&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet" />
+
+  <!-- Highlight.js (OCaml syntax highlighting) -->
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/styles/github-dark.min.css" />
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/highlight.min.js"></script>
+  <!-- OCaml language pack (not bundled in the default build) -->
+  <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.9.0/build/languages/ocaml.min.js"></script>
+
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/tools.css" />
+  <link rel="stylesheet" href="css/instructions.css" />
+  <link rel="stylesheet" href="css/case-studies.css" />
+  <link rel="stylesheet" href="css/modal.css" />
+  <link rel="stylesheet" href="css/footer.css" />
+</head>
+<body>
+
+  <!-- ======================================================================
+       HERO
+       ====================================================================== -->
+  <section class="hero" id="top">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="container container--narrow">
+      <div class="hero__inner">
+
+        <!-- Badge -->
+        <div class="hero__badge">
+          <span class="hero__badge-dot" aria-hidden="true"></span>
+          Research artifact · Master's thesis ·
+          <span id="hero-badge-year"></span>
+        </div>
+
+        <!-- Title -->
+        <h1 class="hero__title" id="hero-thesis-title"></h1>
+
+        <!-- Metadata -->
+        <dl class="hero__meta">
+          <div>
+            <dt>Author</dt>
+            <dd id="hero-author"></dd>
+          </div>
+          <div>
+            <dt>Institution</dt>
+            <dd id="hero-institution"></dd>
+          </div>
+          <div>
+            <dt>Year</dt>
+            <dd id="hero-year"></dd>
+          </div>
+        </dl>
+
+        <!-- Description -->
+        <p class="hero__desc">
+          This repository contains the case studies used in the evaluation of our
+          translation pipeline from OCaml&nbsp;+&nbsp;GOSPEL to COMA. Each example
+          is available in both traditional top-level specification style and
+          in-depth specification style.
+        </p>
+
+        <!-- CTAs -->
+        <div class="hero__cta">
+          <a href="#case-studies" class="btn btn--primary">
+            Browse case studies →
+          </a>
+          <a id="hero-thesis-link" href="#" class="btn btn--outline">
+            Read the thesis
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       TOOLS
+       ====================================================================== -->
+  <section class="tools" id="tools">
+    <div class="container">
+      <div class="tools__inner">
+
+        <div class="section-header">
+          <p class="section-header__eyebrow">01 · Stack</p>
+          <h2 class="section-header__title">Tools &amp; repositories</h2>
+          <p class="section-header__desc">
+            The pipeline builds on a small ecosystem of OCaml verification tools.
+            Each link points to the upstream source.
+          </p>
+        </div>
+
+        <div class="tools__grid" id="tools-grid">
+          <!-- Populated by render.js -->
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       INSTRUCTIONS
+       ====================================================================== -->
+  <section class="instructions" id="instructions">
+    <div class="container">
+      <div class="instructions__inner">
+
+        <div class="section-header">
+          <p class="section-header__eyebrow">02 · Reproduce</p>
+          <h2 class="section-header__title">Running the examples</h2>
+          <p class="section-header__desc">
+            The pipeline is a small dune project. The four steps below take you
+            from a fresh clone to a verified COMA artifact.
+          </p>
+        </div>
+
+        <ol class="steps-list" id="steps-list">
+          <!-- Populated by render.js -->
+        </ol>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       CASE STUDIES
+       ====================================================================== -->
+  <section class="case-studies" id="case-studies">
+    <div class="container container--narrow">
+      <div class="case-studies__inner">
+
+        <div class="section-header">
+          <p class="section-header__eyebrow">03 · Artifacts</p>
+          <h2 class="section-header__title">Case studies</h2>
+          <p class="section-header__desc">
+            Data-structure implementations verified in two GOSPEL specification
+            styles. Open any case to read or download the source.
+          </p>
+        </div>
+
+        <ul class="cs-list" id="case-studies-list">
+          <!-- Populated by render.js -->
+        </ul>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================================
+       FOOTER
+       ====================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+
+        <!-- Brand -->
+        <div>
+          <p class="footer__brand-name" id="footer-author"></p>
+          <p class="footer__brand-inst" id="footer-institution"></p>
+          <p class="footer__brand-note">
+            Research artifact accompanying the Master's thesis listed below.
+            Built as a static site for long-term reproducibility.
+          </p>
+        </div>
+
+        <!-- Resources -->
+        <div>
+          <p class="footer__col-label">Resources</p>
+          <ul class="footer__links">
+            <li><a id="footer-thesis-link" href="#">Thesis (PDF)</a></li>
+            <li><a id="footer-repo-link"   href="#">GitHub repository</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <p class="footer__col-label">Contact</p>
+          <ul class="footer__links">
+            <li><a id="footer-email-link" href="#"></a></li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer__bar">
+      <div class="container">
+        <div class="footer__bar-inner">
+          <span id="footer-copyright"></span>
+          <span class="footer__bar-mono">OCaml + GOSPEL → COMA</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======================================================================
+       CODE MODAL
+       ====================================================================== -->
+
+  <!-- Semi-transparent overlay (also acts as click-outside-to-close area) -->
+  <div class="modal-overlay" id="modal-overlay" hidden aria-hidden="true">
+
+    <div class="modal"
+         id="code-modal"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="modal-title"
+         hidden>
+
+      <!-- Header -->
+      <div class="modal__header">
+        <div class="modal__header-text">
+          <h2 class="modal__title" id="modal-title"></h2>
+          <p class="modal__filename" id="modal-filename"></p>
+        </div>
+        <button class="modal__close" id="modal-close" aria-label="Close">✕</button>
+      </div>
+
+      <!-- Toolbar: tabs + actions -->
+      <div class="modal__toolbar">
+        <div class="tab-group" role="tablist" aria-label="Specification style">
+          <button class="tab tab--active" id="tab-top"
+                  role="tab" aria-selected="true">
+            Top-Level Specification
+          </button>
+          <button class="tab" id="tab-depth"
+                  role="tab" aria-selected="false">
+            In-Depth Specification
+          </button>
+        </div>
+        <div class="modal__actions">
+          <button class="btn btn--secondary" id="btn-download">Download</button>
+          <button class="btn btn--secondary" id="btn-copy">Copy</button>
+        </div>
+      </div>
+
+      <!-- Code pane -->
+      <div class="modal__code" id="modal-code">
+        <pre class="code-pre"><code class="language-ocaml">Loading…</code></pre>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       Scripts (order matters: data → render → modal)
+       ====================================================================== -->
+  <script src="js/data.js"></script>
+  <script src="js/render.js"></script>
+  <script src="js/modal.js"></script>
+
+</body>
+</html>

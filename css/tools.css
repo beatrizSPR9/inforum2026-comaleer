@@ -1,0 +1,89 @@
+/* =============================================================================
+   tools.css — Tools & repositories section
+   ============================================================================= */
+
+.tools {
+  border-bottom: 1px solid var(--border);
+}
+
+.tools__inner {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.tools__grid {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 3rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .tools__grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .tools__grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Tool card */
+.tool-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-2xl);
+  border: 1px solid oklch(0.91 0.012 245 / 0.7);
+  background-color: var(--card);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.15s, border-color 0.15s, box-shadow 0.15s;
+}
+
+.tool-card:hover {
+  transform: translateY(-2px);
+  border-color: oklch(0.54 0.085 185 / 0.4);
+  box-shadow: 0 4px 20px -6px rgba(15, 23, 42, 0.14);
+}
+
+.tool-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.tool-card__name {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+}
+
+.tool-card__arrow {
+  color: var(--fg-muted);
+  font-size: 1rem;
+  transition: color 0.15s;
+}
+
+.tool-card:hover .tool-card__arrow {
+  color: var(--accent);
+}
+
+.tool-card__desc {
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--fg-muted);
+  flex: 1;
+}
+
+.tool-card__cta {
+  display: block;
+  margin-top: 1.5rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}

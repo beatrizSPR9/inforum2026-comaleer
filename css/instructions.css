@@ -1,0 +1,75 @@
+/* =============================================================================
+   instructions.css — "Running the examples" section
+   ============================================================================= */
+
+.instructions {
+  background-color: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.instructions__inner {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+}
+
+.steps-list {
+  display: grid;
+  gap: 1.25rem;
+  margin-top: 3rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .steps-list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Step card */
+.step-card {
+  border-radius: var(--radius-2xl);
+  border: 1px solid oklch(0.91 0.012 245 / 0.7);
+  background-color: var(--card);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-card);
+}
+
+.step-card__header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.step-card__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-sm);
+  background-color: oklch(0.34 0.07 255 / 0.1);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--primary);
+  flex-shrink: 0;
+}
+
+.step-card__title {
+  font-family: var(--font-serif);
+  font-size: 1.125rem;
+  font-weight: 450;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
+}
+
+.step-card__code {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  background-color: var(--code-bg);
+  padding: 1rem;
+  font-size: 0.82rem;
+  line-height: 1.65;
+  color: var(--code-fg);
+  white-space: pre;
+}
