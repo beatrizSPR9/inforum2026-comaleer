@@ -9,13 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Hero
   document.getElementById("hero-thesis-title").textContent = SITE.thesisTitle;
-  document.getElementById("hero-author").textContent       = SITE.author;
-  document.getElementById("hero-institution").textContent  = SITE.institution;
-  document.getElementById("hero-year").textContent         = SITE.year;
   document.getElementById("hero-badge-year").textContent   = SITE.year;
-
-  var heroThesisLink = document.getElementById("hero-thesis-link");
-  heroThesisLink.href = SITE.thesisUrl;
 
   // Footer
   document.getElementById("footer-author").textContent      = SITE.author;
@@ -70,20 +64,55 @@ document.addEventListener("DOMContentLoaded", function () {
   csList.innerHTML = "";
 
   CASE_STUDIES.forEach(function (study) {
+    var tl  = study.topLevelLines || 0;
+    var idl = study.inDepthLines  || 0;
+    var pct = (tl > 0 && idl > 0) ? Math.round((1 - idl / tl) * 100) : null;
+
+    var badgeHtml = pct !== null
+      ? '<span class="cs-card__badge">&minus;' + pct + '%</span>'
+      : '';
+
+    var statVal = function (n, unit) {
+      return n
+        ? '<span class="cs-card__stat-num">' + n + '</span>' +
+          '<span class="cs-card__stat-unit"> ' + unit + '</span>'
+        : '<span class="cs-card__stat-num">&mdash;</span>';
+    };
+
     var li = document.createElement("li");
-    li.className = "cs-item";
+    li.className = "cs-card";
+    li.setAttribute("role", "button");
+    li.setAttribute("tabindex", "0");
     li.innerHTML =
-      '<div class="cs-item__info">' +
-        '<h3 class="cs-item__title">' + escapeHtml(study.title) + "</h3>" +
-        '<p class="cs-item__desc">' + escapeHtml(study.description) + "</p>" +
-      "</div>" +
-      '<button class="btn btn--accent" data-study-id="' + escapeHtml(study.id) + '">' +
-        "View source" +
-      "</button>";
+      '<div class="cs-card__top">' +
+        '<h3 class="cs-card__title">' + escapeHtml(study.title) + '</h3>' +
+        badgeHtml +
+      '</div>' +
+      '<p class="cs-card__desc">' + escapeHtml(study.description) + '</p>' +
+      '<div class="cs-card__stats-box">' +
+        '<div class="cs-card__stat">' +
+          '<span class="cs-card__stat-label">Top-level</span>' +
+          '<span class="cs-card__stat-value">' + statVal(tl, 'lines') + '</span>' +
+        '</div>' +
+        '<div class="cs-card__stat">' +
+          '<span class="cs-card__stat-label">In-depth</span>' +
+          '<span class="cs-card__stat-value">' + statVal(idl, 'lines') + '</span>' +
+        '</div>' +
+        '<div class="cs-card__stat">' +
+          '<span class="cs-card__stat-label">Reduction</span>' +
+          '<span class="cs-card__stat-value">' + statVal(pct !== null ? pct : 0, pct !== null ? '%' : '') + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="cs-card__footer">' +
+        '<button class="btn btn--accent cs-card__btn">View source →</button>' +
+      '</div>';
+
     csList.appendChild(li);
 
-    li.querySelector("button").addEventListener("click", function () {
-      openModal(study);
+    function handleOpen() { openModal(study); }
+    li.addEventListener("click", handleOpen);
+    li.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleOpen(); }
     });
   });
 

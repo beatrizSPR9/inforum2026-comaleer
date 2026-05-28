@@ -14,6 +14,7 @@
   /* Text */
   --fg:          oklch(0.26 0.05 250);    /* primary text */
   --fg-muted:    oklch(0.48 0.03 252);    /* secondary text */
+  --fg-muted2:   oklch(0.65 0.02 240);    /* tertiary text */
 
   /* Brand */
   --primary:     oklch(0.34 0.07 255);    /* deep navy ≈ #1e3a5f */

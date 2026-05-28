@@ -21,9 +21,9 @@ var SITE = {
 // ---------------------------------------------------------------------------
 var TOOLS = [
   {
-    name: "COMA",
-    description: "Continuation-passing intermediate verification language. The target of the translation pipeline.",
-    url: "https://gitlab.inria.fr/why3/coma"
+    name: "Why3",
+    description: "Platform for deductive program verification providing a rich logic and multiple solver back-ends.",
+    url: "https://www.why3.org/"
   },
   {
     name: "Cameleer",
@@ -31,15 +31,15 @@ var TOOLS = [
     url: "https://github.com/ocaml-gospel/cameleer"
   },
   {
-    name: "Why3",
-    description: "Platform for deductive program verification providing a rich logic and multiple solver back-ends.",
-    url: "https://www.why3.org/"
-  },
-  {
     name: "GOSPEL",
     description: "Generic OCaml Specification Language used to annotate OCaml signatures with formal contracts.",
     url: "https://github.com/ocaml-gospel/gospel"
-  }
+  },
+  {
+    name: "COMA",
+    description: "Continuation-passing intermediate verification language. The target of the translation pipeline.",
+    url: "https://gitlab.inria.fr/why3/coma"
+  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -80,6 +80,8 @@ var CASE_STUDIES = [
     id: "bst",
     title: "Binary Search Tree",
     description: "Pure BST with insert, member, and delete.",
+    topLevelLines: 45,
+    inDepthLines:  42,
     topLevelPath: "examples/bst/binary_search_tree_top_level.ml",
     inDepthPath:  "examples/bst/binary_search_tree_in_depth.ml"
   },
@@ -87,6 +89,8 @@ var CASE_STUDIES = [
     id: "leftist_heaps",
     title: "Leftist Heaps",
     description: "Functional priority queue with logarithmic merge.",
+    topLevelLines: 73,
+    inDepthLines:  41,
     topLevelPath: "examples/leftist_heaps/leftist_heaps_top_level.ml",
     inDepthPath:  "examples/leftist_heaps/leftist_heaps_in_depth.ml"
   },
@@ -94,6 +98,8 @@ var CASE_STUDIES = [
     id: "pairing_heaps",
     title: "Pairing Heaps",
     description: "Functional priority queue with efficient merge operation.",
+    topLevelLines: 78,
+    inDepthLines:  54,
     topLevelPath: "examples/pairing_heaps/pairing_heaps_top_level.ml",
     inDepthPath:  "examples/pairing_heaps/pairing_heaps_in_depth.ml"
   },
@@ -101,6 +107,8 @@ var CASE_STUDIES = [
     id: "red_black_trees",
     title: "Red Black Trees",
     description: "Self-balancing binary search trees with guaranteed logarithmic height.",
+    topLevelLines: 131,
+    inDepthLines:  111,
     topLevelPath: "examples/red_black_trees/red_black_trees_top_level.ml",
     inDepthPath:  "examples/red_black_trees/red_black_trees_in_depth.ml"
   },
@@ -108,6 +116,8 @@ var CASE_STUDIES = [
     id: "same_fringe",
     title: "Same Fringe",
     description: "Determines if two binary trees have the same sequence of leaves.",
+    topLevelLines: 17,
+    inDepthLines:  14,
     topLevelPath: "examples/same_fringe/same_fringe_top_level.ml",
     inDepthPath:  "examples/same_fringe/same_fringe_in_depth.ml"
   },
@@ -115,6 +125,8 @@ var CASE_STUDIES = [
     id: "skew_heaps",
     title: "Skew Heaps",
     description: "Functional priority queue with efficient merge operation.",
+    topLevelLines: 48,
+    inDepthLines:  27,
     topLevelPath: "examples/skew_heaps/skew_heaps_top_level.ml",
     inDepthPath:  "examples/skew_heaps/skew_heaps_in_depth.ml"
   },

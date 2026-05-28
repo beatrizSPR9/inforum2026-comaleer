@@ -49,28 +49,14 @@
         <!-- Title -->
         <h1 class="hero__title" id="hero-thesis-title"></h1>
 
-        <!-- Metadata -->
-        <dl class="hero__meta">
-          <div>
-            <dt>Author</dt>
-            <dd id="hero-author"></dd>
-          </div>
-          <div>
-            <dt>Institution</dt>
-            <dd id="hero-institution"></dd>
-          </div>
-          <div>
-            <dt>Year</dt>
-            <dd id="hero-year"></dd>
-          </div>
-        </dl>
+        <!-- Authors -->
+        <p class="hero__authors">Beatriz Rosas &amp; Paul Patault</p>
 
         <!-- Description -->
         <p class="hero__desc">
-          This is the companion artifact page for the INForum 2026 paper 
-          “Comaleer: A Translation Pipeline for Deductive Verification”. 
+          This is the companion artifact page for the INForum 2026 paper
+          <em>”Comaleer: A Translation Pipeline for Deductive Verification”</em>.
           It provides access to the tools, repositories, and case studies used in the paper.
-
         </p>
 
         <!-- CTAs -->
@@ -95,11 +81,10 @@
       <div class="tools__inner">
 
         <div class="section-header">
-          <p class="section-header__eyebrow">01 · Stack</p>
-          <h2 class="section-header__title">Tools &amp; repositories</h2>
+          <!-- <p class="section-header__eyebrow">01 · Stack</p> -->
+          <h2 class="section-header__title">Repositories</h2>
           <p class="section-header__desc">
-            The pipeline builds on a small ecosystem of OCaml verification tools.
-            Each link points to the upstream source.
+            The following tools are needed to try the examples.
           </p>
         </div>
 
@@ -119,8 +104,8 @@
       <div class="instructions__inner">
 
         <div class="section-header">
-          <p class="section-header__eyebrow">02 · Reproduce</p>
-          <h2 class="section-header__title">Running the examples</h2>
+          <!-- <p class="section-header__eyebrow">02 · Reproduce</p> -->
+          <h2 class="section-header__title">Instructions</h2>
           <p class="section-header__desc">
             The pipeline is a small dune project. The four steps below take you
             from a fresh clone to a verified COMA artifact.
@@ -139,11 +124,11 @@
        CASE STUDIES
        ====================================================================== -->
   <section class="case-studies" id="case-studies">
-    <div class="container container--narrow">
+    <div class="container">
       <div class="case-studies__inner">
 
         <div class="section-header">
-          <p class="section-header__eyebrow">03 · Artifacts</p>
+          <!-- <p class="section-header__eyebrow">03 · Artifacts</p> -->
           <h2 class="section-header__title">Case studies</h2>
           <p class="section-header__desc">
             Data-structure implementations verified in two GOSPEL specification
@@ -151,7 +136,7 @@
           </p>
         </div>
 
-        <ul class="cs-list" id="case-studies-list">
+        <ul class="cs-grid" id="case-studies-list">
           <!-- Populated by render.js -->
         </ul>
 
