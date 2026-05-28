@@ -21,14 +21,14 @@
 }
 
 .hero__inner {
-  padding-top: 6rem;
+  padding-top: 1rem;
   padding-bottom: 6rem;
 }
 
 @media (min-width: 640px) {
   .hero__inner {
-    padding-top: 8rem;
-    padding-bottom: 8rem;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
   }
 }
 
@@ -59,7 +59,7 @@
   font-family: var(--font-serif);
   font-size: clamp(2rem, 6vw, 3.75rem);
   color: var(--fg);
-  max-width: 20ch;
+  max-width: 22ch;
 }
 
 /* Metadata grid */
@@ -83,7 +83,6 @@
 /* Description */
 .hero__desc {
   margin-top: 2.5rem;
-  max-width: 42rem;
   font-size: 1rem;
   line-height: 1.75;
   color: var(--fg-muted);

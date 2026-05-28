@@ -7,7 +7,7 @@
 // Site metadata
 // ---------------------------------------------------------------------------
 var SITE = {
-  thesisTitle: "From OCaml + GOSPEL to COMA: A Translation Pipeline for Deductive Verification",
+  thesisTitle: "Comaleer: A Translation Pipeline for Deductive Verification",
   author: "TODO: Author Name",
   institution: "TODO: Institution",
   year: 2026,
