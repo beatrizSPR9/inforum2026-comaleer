@@ -60,12 +60,14 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 2rem;
+  overflow-x: hidden;
 }
 
 body {
   background-color: var(--bg);
   color: var(--fg);
   font-family: var(--font-sans);
+  overflow-x: hidden;
   font-size: 1rem;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;

@@ -141,11 +141,15 @@
   color: var(--fg);
 }
 
+.tab--active:hover {
+  background-color: var(--primary);
+  color: var(--primary-fg);
+}
+
 .tab--active {
-  background-color: var(--card);
-  color: var(--fg);
-  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08);
-  border: 1px solid var(--border);
+  background-color: var(--primary);
+  color: var(--primary-fg);
+  border: 1px solid transparent;
 }
 
 /* Action buttons row */

@@ -32,6 +32,8 @@
   background-color: var(--card);
   padding: 1.5rem;
   box-shadow: var(--shadow-card);
+  min-width: 0;
+  overflow: hidden;
 }
 
 .step-card__header {
@@ -72,4 +74,7 @@
   line-height: 1.65;
   color: var(--code-fg);
   white-space: pre;
+  /* Prevent the pre from stretching outside the card on mobile */
+  max-width: 100%;
+  box-sizing: border-box;
 }
