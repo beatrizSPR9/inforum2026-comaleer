@@ -32,13 +32,13 @@ var TOOLS = [
   },
   {
     name: "GOSPEL",
-    description: "Generic OCaml Specification Language used to annotate OCaml signatures with formal contracts.",
+    description: "Generic OCaml Specification Language used to annotate OCaml programs with formal contracts.",
     url: "https://github.com/ocaml-gospel/gospel"
   },
   {
     name: "COMA",
     description: "Continuation-passing intermediate verification language. The target of the translation pipeline.",
-    url: "https://gitlab.inria.fr/why3/coma"
+    url: "https://coma.paulpatault.fr/"
   },
 ];
 
@@ -47,20 +47,24 @@ var TOOLS = [
 // ---------------------------------------------------------------------------
 var STEPS = [
   {
-    title: "Clone the repository",
-    code: "git clone https://github.com/TODO/ocaml-gospel-to-coma.git\ncd ocaml-gospel-to-coma"
+    title: "Create OPAM switch",
+    description: "Start by creating a dedicated switch running the following command. If the command fails, run <code>opam update</code> and then retry.",
+    code: "opam switch create comaleer ocaml-base-compiler.4.14.2"
   },
   {
-    title: "Install dependencies",
-    code: "opam switch create . 5.1.0\nopam install . --deps-only --with-test"
+    title: "Restart and verify the switch",
+    description: "Restart your machine and confirm the switch was created correctly by listing all available switches.",
+    code: "opam switch list\n# Expected output:\n#     switch      compiler                    description\n->    comaleer    ocaml-base-compiler.4.14.2  comaleer"
   },
   {
-    title: "Run the translation pipeline",
-    code: "dune exec bin/translate.exe -- examples/stack.ml \\\n  --style in-depth \\\n  -o build/stack.coma"
+    title: "Cameleer installation",
+    description: "Clone the Cameleer repository, pin the required version of cmdliner, and install Cameleer along with all its dependencies (Why3, GOSPEL, solvers). Then verify the installation.",
+    code: "git clone https://github.com/ocaml-gospel/cameleer.git\ncd cameleer\nopam pin add cmdliner 1.3.0 && opam pin add .\ncameleer --version"
   },
   {
-    title: "Verify the generated COMA code",
-    code: "why3 prove -P alt-ergo,z3 build/stack.coma"
+    title: "Run an example",
+    description: "To verify a specific OCaml file, run Cameleer with the <code>--coma</code> flag. This translates the file to COMA and opens the Why3 IDE so you can interactively prove the example.",
+    code: "cameleer --coma filename.ml"
   }
 ];
 

@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", function () {
         '<span class="step-card__num">' + String(i + 1).padStart(2, "0") + "</span>" +
         '<h3 class="step-card__title">' + escapeHtml(step.title) + "</h3>" +
       "</div>" +
+      '<p class="step-card__desc">' + step.description + "</p>" +
       '<pre class="step-card__code"><code>' + escapeHtml(step.code) + "</code></pre>";
     stepsList.appendChild(li);
   });
