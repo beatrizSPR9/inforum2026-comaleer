@@ -133,10 +133,33 @@
           <!-- <p class="section-header__eyebrow">03 · Artifacts</p> -->
           <h2 class="section-header__title">Case studies</h2>
           <p class="section-header__desc">
-            Data-structure implementations verified in two GOSPEL specification
-            styles. Open any case to read or download the source.
+            The case studies below correspond to the examples discussed in the paper.
+            Each data structure is specified in two styles: top-level style and in-depth style.
+            Click on <em>view source</em> to see the GOSPEL specifications and OCaml implementations 
+            and <em>proof results</em> to view the obligations discharged by each prover, with time in seconds.
           </p>
         </div>
+
+        <div class="cs-download">
+          <a href="examples/examples.zip" download class="btn btn--outline cs-download__btn">
+            Download all examples (.zip) 
+          </a>
+        </div>
+
+        <dl class="cs-legend">
+          <div class="cs-legend__item">
+            <dt>Top-level</dt>
+            <dd>Lines of specification in the top-level style</dd>
+          </div>
+          <div class="cs-legend__item">
+            <dt>In-depth</dt>
+            <dd>Lines of specification in the in-depth style</dd>
+          </div>
+          <div class="cs-legend__item">
+            <dt>Reduction</dt>
+            <dd>Percentage decrease in specification lines from top-level to in-depth</dd>
+          </div>
+        </dl>
 
         <ul class="cs-grid" id="case-studies-list">
           <!-- Populated by render.js -->
@@ -192,6 +215,28 @@
         <pre class="code-pre"><code class="language-ocaml">Loading…</code></pre>
       </div>
 
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       PROOF RESULTS MODAL
+       ====================================================================== -->
+  <div class="modal-overlay" id="proof-modal-overlay" hidden aria-hidden="true">
+    <div class="modal"
+         id="proof-modal"
+         role="dialog"
+         aria-modal="true"
+         aria-labelledby="proof-modal-title"
+         hidden>
+      <div class="modal__header">
+        <div class="modal__header-text">
+          <h2 class="modal__title" id="proof-modal-title"></h2>
+        </div>
+        <button class="modal__close" id="proof-modal-close" aria-label="Close">✕</button>
+      </div>
+      <div class="modal__body" id="proof-modal-body">
+        <!-- proof results table will go here -->
+      </div>
     </div>
   </div>
 
