@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         '</div>' +
       '</div>' +
       '<div class="cs-card__footer">' +
-        '<button class="btn btn--secondary cs-card__btn-proof">Proof results</button>' +
+        (study.proofResultsPath ? '<button class="btn btn--secondary cs-card__btn-proof">Proof results</button>' : '') +
         '<button class="btn btn--accent cs-card__btn">View source →</button>' +
       '</div>';
 
@@ -108,10 +108,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     var proofBtn = li.querySelector(".cs-card__btn-proof");
-    proofBtn.addEventListener("click", function (e) {
-      e.stopPropagation();
-      openProofModal(study);
-    });
+    if (proofBtn) {
+      proofBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        openProofModal(study);
+      });
+    }
   });
 
 });

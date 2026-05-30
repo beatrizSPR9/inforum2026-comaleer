@@ -175,13 +175,128 @@
 }
 
 /* ---------------------------------------------------------------------------
-   Proof-results modal body
+   Proof-results modal body + header meta
    --------------------------------------------------------------------------- */
 .modal__body {
   flex: 1;
   overflow: auto;
-  padding: 1.5rem;
   min-height: 12rem;
+}
+
+.proof-modal__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-top: 0.2rem;
+}
+
+.proof-modal__desc {
+  margin-top: 0.4rem;
+  font-size: 0.78rem;
+  color: var(--fg-muted2);
+  line-height: 1.5;
+}
+
+.proof-modal__badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  background-color: oklch(0.54 0.12 155 / 0.12);
+  color: oklch(0.38 0.12 155);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+/* ---------------------------------------------------------------------------
+   Proof results table
+   --------------------------------------------------------------------------- */
+.proof-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+}
+
+.proof-th {
+  position: sticky;
+  top: 0;
+  text-align: left;
+  padding: 0.6rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+  background-color: var(--surface);
+  z-index: 1;
+}
+
+.proof-th:last-child {
+  border-right: none;
+}
+
+.proof-th--obligation { width: 60%; }
+
+.proof-row {
+  border-bottom: 1px solid oklch(0.91 0.012 245 / 0.5);
+}
+
+.proof-row--goal .proof-cell--name {
+  color: var(--fg);
+}
+
+.proof-row--transf {
+  background-color: oklch(0.965 0.008 240 / 0.6);
+}
+
+.proof-cell--transf {
+  font-style: italic;
+  color: var(--fg-muted);
+  font-size: 0.75rem;
+}
+
+.proof-row--leaf:hover {
+  background-color: oklch(0.965 0.008 240 / 0.4);
+}
+
+.proof-cell {
+  padding: 0.45rem 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  border-right: 1px solid var(--border);
+}
+
+.proof-cell:last-child {
+  border-right: none;
+}
+
+.proof-cell--name { color: var(--fg); }
+
+.proof-arrow {
+  color: var(--fg-muted2);
+  font-style: normal;
+  margin-right: 0.1rem;
+}
+
+.proof-cell--valid {
+  color: oklch(0.38 0.12 155);
+  font-weight: 500;
+  background-color: oklch(0.54 0.12 155 / 0.07);
+}
+
+.proof-cell--empty {
+  color: var(--fg-muted2);
+}
+
+.proof-loading,
+.proof-error {
+  padding: 2rem 1.5rem;
+  color: var(--fg-muted);
+  font-size: 0.9rem;
 }
 
 /* The pre/code rendered inside */

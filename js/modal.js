@@ -216,13 +216,16 @@ function downloadCode() {
 // Proof results modal
 // ---------------------------------------------------------------------------
 var proofModal, proofModalOverlay, proofModalClose;
-var proofModalTitle;
+var proofModalTitle, proofModalFilename, proofModalBadge, proofModalBody;
 
 document.addEventListener("DOMContentLoaded", function () {
-  proofModal        = document.getElementById("proof-modal");
-  proofModalOverlay = document.getElementById("proof-modal-overlay");
-  proofModalClose   = document.getElementById("proof-modal-close");
-  proofModalTitle   = document.getElementById("proof-modal-title");
+  proofModal         = document.getElementById("proof-modal");
+  proofModalOverlay  = document.getElementById("proof-modal-overlay");
+  proofModalClose    = document.getElementById("proof-modal-close");
+  proofModalTitle    = document.getElementById("proof-modal-title");
+  proofModalFilename = document.getElementById("proof-modal-filename");
+  proofModalBadge    = document.getElementById("proof-modal-badge");
+  proofModalBody     = document.getElementById("proof-modal-body");
 
   proofModalClose.addEventListener("click", closeProofModal);
   proofModalOverlay.addEventListener("click", function (e) {
@@ -235,13 +238,23 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function openProofModal(study) {
-  proofModalTitle.textContent = study.title;
+  proofModalTitle.textContent    = study.title;
+  proofModalFilename.textContent = "";
+  proofModalBadge.setAttribute("hidden", "");
+  proofModalBody.innerHTML = '<p class="proof-loading">Loading…</p>';
 
   proofModalOverlay.removeAttribute("hidden");
   proofModalOverlay.removeAttribute("aria-hidden");
   proofModal.removeAttribute("hidden");
   document.body.style.overflow = "hidden";
   proofModalClose.focus();
+
+  fetch(study.proofResultsPath)
+    .then(function (res) { return res.text(); })
+    .then(function (xml) { renderProofTable(xml); })
+    .catch(function () {
+      proofModalBody.innerHTML = '<p class="proof-error">Could not load proof results.</p>';
+    });
 }
 
 function closeProofModal() {
@@ -249,6 +262,100 @@ function closeProofModal() {
   proofModalOverlay.setAttribute("hidden", "");
   proofModalOverlay.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+}
+
+function parseProofXml(xmlText) {
+  var doc = new DOMParser().parseFromString(xmlText, "application/xml");
+
+  var provers = {};
+  doc.querySelectorAll("prover").forEach(function (p) {
+    provers[p.getAttribute("id")] = p.getAttribute("name") + " " + p.getAttribute("version");
+  });
+
+  var fileEl = doc.querySelector("file");
+  var fullyVerified = fileEl && fileEl.getAttribute("proved") === "true";
+
+  var paths = fileEl ? Array.from(fileEl.querySelectorAll("path")) : [];
+  var filename = paths.length ? paths[paths.length - 1].getAttribute("name") : "";
+
+  var rows = [];
+  function walkGoal(goal, depth) {
+    var name    = goal.getAttribute("name");
+    var proofEl = goal.querySelector(":scope > proof");
+    if (proofEl) {
+      var result = proofEl.querySelector("result");
+      rows.push({
+        type:     "leaf",
+        name:     name,
+        depth:    depth,
+        proverId: proofEl.getAttribute("prover"),
+        time:     result ? parseFloat(result.getAttribute("time")).toFixed(3) : "—",
+        status:   result ? result.getAttribute("status") : "—"
+      });
+    } else {
+      var transf = goal.querySelector(":scope > transf");
+      if (transf) {
+        rows.push({ type: "goal", name: name, depth: depth });
+        rows.push({ type: "transf", name: transf.getAttribute("name"), depth: depth + 1 });
+        Array.from(transf.querySelectorAll(":scope > goal"))
+          .forEach(function (sg) { walkGoal(sg, depth + 2); });
+      }
+    }
+  }
+
+  var theory = doc.querySelector("theory");
+  if (theory) {
+    Array.from(theory.querySelectorAll(":scope > goal"))
+      .forEach(function (g) { walkGoal(g, 0); });
+  }
+
+  return { provers: provers, fullyVerified: fullyVerified, filename: filename, rows: rows };
+}
+
+function renderProofTable(xmlText) {
+  var data     = parseProofXml(xmlText);
+  var proverIds = Object.keys(data.provers);
+
+  proofModalFilename.textContent = data.filename;
+  if (data.fullyVerified) proofModalBadge.removeAttribute("hidden");
+
+  var thead = '<tr><th class="proof-th proof-th--obligation">Obligation</th>' +
+    proverIds.map(function (id) {
+      return '<th class="proof-th">' + escapeHtml(data.provers[id]) + '</th>';
+    }).join('') + '</tr>';
+
+  var tbody = data.rows.map(function (row) {
+    var indent = (0.75 + row.depth * 1.25) + 'rem';
+    var emptyCells = proverIds.map(function () {
+      return '<td class="proof-cell proof-cell--empty">—</td>';
+    }).join('');
+
+    if (row.type === "transf") {
+      return '<tr class="proof-row proof-row--transf">' +
+        '<td class="proof-cell proof-cell--transf" colspan="' + (proverIds.length + 1) + '" style="padding-left:' + indent + '">' +
+          escapeHtml(row.name) + '</td>' +
+        '</tr>';
+    }
+    if (row.type === "goal") {
+      return '<tr class="proof-row proof-row--goal">' +
+        '<td class="proof-cell proof-cell--name" style="padding-left:' + indent + '">' +
+          escapeHtml(row.name) + '</td>' +
+        emptyCells + '</tr>';
+    }
+    // leaf
+    var arrow = row.depth > 0 ? '<span class="proof-arrow">↳</span> ' : '';
+    return '<tr class="proof-row proof-row--leaf">' +
+      '<td class="proof-cell proof-cell--name" style="padding-left:' + indent + '">' +
+        arrow + escapeHtml(row.name) + '</td>' +
+      proverIds.map(function (id) {
+        return id === row.proverId
+          ? '<td class="proof-cell proof-cell--valid">' + row.time + 's</td>'
+          : '<td class="proof-cell proof-cell--empty">—</td>';
+      }).join('') + '</tr>';
+  }).join('');
+
+  proofModalBody.innerHTML =
+    '<table class="proof-table"><thead>' + thead + '</thead><tbody>' + tbody + '</tbody></table>';
 }
 
 // ---------------------------------------------------------------------------

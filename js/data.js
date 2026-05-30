@@ -87,7 +87,8 @@ var CASE_STUDIES = [
     topLevelLines: 45,
     inDepthLines:  42,
     topLevelPath: "examples/bst/binary_search_tree_top_level.ml",
-    inDepthPath:  "examples/bst/binary_search_tree_in_depth.ml"
+    inDepthPath:  "examples/bst/binary_search_tree_in_depth.ml",
+    proofResultsPath: "proof_results/binary_search_tree_in_depth.xml"
   },
   {
     id: "leftist_heaps",
@@ -96,7 +97,8 @@ var CASE_STUDIES = [
     topLevelLines: 73,
     inDepthLines:  41,
     topLevelPath: "examples/leftist_heaps/leftist_heaps_top_level.ml",
-    inDepthPath:  "examples/leftist_heaps/leftist_heaps_in_depth.ml"
+    inDepthPath:  "examples/leftist_heaps/leftist_heaps_in_depth.ml",
+    proofResultsPath: "proof_results/leftist_heaps_in_depth.xml"
   },
   {
     id: "pairing_heaps",
@@ -132,6 +134,7 @@ var CASE_STUDIES = [
     topLevelLines: 48,
     inDepthLines:  27,
     topLevelPath: "examples/skew_heaps/skew_heaps_top_level.ml",
-    inDepthPath:  "examples/skew_heaps/skew_heaps_in_depth.ml"
+    inDepthPath:  "examples/skew_heaps/skew_heaps_in_depth.ml",
+    proofResultsPath: "proof_results/skew_heaps_in_depth.xml"
   },
 ];
