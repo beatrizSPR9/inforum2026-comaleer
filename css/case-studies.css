@@ -12,6 +12,53 @@
 }
 
 /* ---------------------------------------------------------------------------
+   Download button
+   --------------------------------------------------------------------------- */
+.cs-download {
+  margin-top: 1.5rem;
+}
+
+/* ---------------------------------------------------------------------------
+   Stats legend
+   --------------------------------------------------------------------------- */
+.cs-legend {
+  display: table;
+  border-collapse: collapse;
+  margin-top: 1.25rem;
+  font-size: 0.82rem;
+}
+
+.cs-legend__item {
+  display: table-row;
+}
+
+.cs-legend__item dt,
+.cs-legend__item dd {
+  display: table-cell;
+  padding: 0.3rem 0;
+  vertical-align: middle;
+}
+
+.cs-legend__item dt {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--accent);
+  white-space: nowrap;
+  padding-right: 1.25rem;
+  letter-spacing: 0.01em;
+}
+
+.cs-legend__item dd {
+  color: var(--fg-muted);
+}
+
+.cs-legend__item + .cs-legend__item dt,
+.cs-legend__item + .cs-legend__item dd {
+  border-top: 1px solid var(--border);
+}
+
+/* ---------------------------------------------------------------------------
    Grid
    --------------------------------------------------------------------------- */
 .cs-grid {
@@ -180,10 +227,16 @@
 .cs-card__footer {
   display: flex;
   justify-content: flex-end;
+  gap: 0.5rem;
   margin-top: 0.75rem;
 }
 
-/* Prevent the button's own click from bubbling and firing twice */
+/* Prevent the buttons' own clicks from bubbling and firing the card open handler */
+.cs-card__btn,
+.cs-card__btn-proof {
+  pointer-events: auto;
+}
+
 .cs-card__btn {
   pointer-events: none;
 }

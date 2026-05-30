@@ -213,6 +213,45 @@ function downloadCode() {
 }
 
 // ---------------------------------------------------------------------------
+// Proof results modal
+// ---------------------------------------------------------------------------
+var proofModal, proofModalOverlay, proofModalClose;
+var proofModalTitle;
+
+document.addEventListener("DOMContentLoaded", function () {
+  proofModal        = document.getElementById("proof-modal");
+  proofModalOverlay = document.getElementById("proof-modal-overlay");
+  proofModalClose   = document.getElementById("proof-modal-close");
+  proofModalTitle   = document.getElementById("proof-modal-title");
+
+  proofModalClose.addEventListener("click", closeProofModal);
+  proofModalOverlay.addEventListener("click", function (e) {
+    if (e.target === proofModalOverlay) closeProofModal();
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeProofModal();
+  });
+});
+
+function openProofModal(study) {
+  proofModalTitle.textContent = study.title;
+
+  proofModalOverlay.removeAttribute("hidden");
+  proofModalOverlay.removeAttribute("aria-hidden");
+  proofModal.removeAttribute("hidden");
+  document.body.style.overflow = "hidden";
+  proofModalClose.focus();
+}
+
+function closeProofModal() {
+  proofModal.setAttribute("hidden", "");
+  proofModalOverlay.setAttribute("hidden", "");
+  proofModalOverlay.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+// ---------------------------------------------------------------------------
 // Helpers
 // ---------------------------------------------------------------------------
 function baseName(path) {

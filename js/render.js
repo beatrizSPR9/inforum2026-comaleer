@@ -58,11 +58,11 @@ document.addEventListener("DOMContentLoaded", function () {
   CASE_STUDIES.forEach(function (study) {
     var tl  = study.topLevelLines || 0;
     var idl = study.inDepthLines  || 0;
-    var pct = (tl > 0 && idl > 0) ? Math.round((1 - idl / tl) * 100) : null;
+    var pct = (tl > 0 && idl > 0) ? Math.round((tl - idl) / tl * 100) : null;
 
-    var badgeHtml = pct !== null
-      ? '<span class="cs-card__badge">&minus;' + pct + '%</span>'
-      : '';
+    // var badgeHtml = pct !== null
+    //   ? '<span class="cs-card__badge">&minus;' + pct + '%</span>'
+    //   : '';
 
     var statVal = function (n, unit) {
       return n
@@ -78,7 +78,6 @@ document.addEventListener("DOMContentLoaded", function () {
     li.innerHTML =
       '<div class="cs-card__top">' +
         '<h3 class="cs-card__title">' + escapeHtml(study.title) + '</h3>' +
-        badgeHtml +
       '</div>' +
       '<p class="cs-card__desc">' + escapeHtml(study.description) + '</p>' +
       '<div class="cs-card__stats-box">' +
@@ -96,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
         '</div>' +
       '</div>' +
       '<div class="cs-card__footer">' +
+        '<button class="btn btn--secondary cs-card__btn-proof">Proof results</button>' +
         '<button class="btn btn--accent cs-card__btn">View source →</button>' +
       '</div>';
 
@@ -105,6 +105,12 @@ document.addEventListener("DOMContentLoaded", function () {
     li.addEventListener("click", handleOpen);
     li.addEventListener("keydown", function (e) {
       if (e.key === "Enter" || e.key === " ") { e.preventDefault(); handleOpen(); }
+    });
+
+    var proofBtn = li.querySelector(".cs-card__btn-proof");
+    proofBtn.addEventListener("click", function (e) {
+      e.stopPropagation();
+      openProofModal(study);
     });
   });
 

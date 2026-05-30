@@ -163,11 +163,25 @@
    Code pane
    --------------------------------------------------------------------------- */
 .modal__code {
+  /* Restore dark editor palette regardless of the global --code-* tokens */
+  --code-bg: oklch(0.18 0.02 250);
+  --code-fg: oklch(0.96 0.005 240);
+
   flex: 1;
   overflow: auto;
   background-color: var(--code-bg);
   color: var(--code-fg);
   min-height: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Proof-results modal body
+   --------------------------------------------------------------------------- */
+.modal__body {
+  flex: 1;
+  overflow: auto;
+  padding: 1.5rem;
+  min-height: 12rem;
 }
 
 /* The pre/code rendered inside */
