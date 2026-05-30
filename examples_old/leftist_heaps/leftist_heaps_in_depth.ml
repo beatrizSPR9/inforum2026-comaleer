@@ -119,10 +119,10 @@ let rec merge (t1: elt tree) (t2: elt tree) : elt tree =
   | (_: elt tree), Empty -> t1
   | (Node ((_: int), (l1: elt tree), (x1: elt), (r1: elt tree)), 
      Node ((_: int), (l2: elt tree), (x2: elt), (r2: elt tree))) 
-     (*@ requires leftist_heap t1 && leftist_heap t2 
-         ensures size result = size t1 + size t2
-         ensures forall x. occ x result = occ x t1 + occ x t2
-         ensures leftist_heap result *) ->
+     [@gospel {|  requires leftist_heap t1 && leftist_heap t2 
+                  ensures size result = size t1 + size t2
+                  ensures forall x. occ x result = occ x t1 + occ x t2
+                  ensures leftist_heap result |}] ->
       if x1 <= x2 then 
         let (o1: elt tree) = merge r1 t2 in
         make_n x1 l1 o1

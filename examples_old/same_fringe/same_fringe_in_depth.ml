@@ -14,8 +14,8 @@ let rec mk_zipper (t : elt tree) (e : enum) : enum =
   match (t : elt tree) with
   | Empty -> e
   | Node ((l: elt tree), (x: elt), (r: elt tree)) 
-  (*@ requires true
-      ensures enum_elements result = elements t @ enum_elements e *) 
+  [@gospel {| requires true
+             ensures enum_elements result = elements t @ enum_elements e |}] 
       -> mk_zipper l (Next (x, r, e))
 (*@ r = mk_zipper t e
       variant t *)
@@ -24,8 +24,8 @@ let rec eq_enum (e1 : enum) (e2 : enum) : bool =
   match ((e1 : enum), (e2 : enum)) with
   | Done, Done -> true
   | (Next ((x1: elt), (r1:elt tree), (e11: enum)), Next ((x2:elt), (r2: elt tree),(e22: enum))) 
-  (*@ requires true
-      ensures result <-> (Sequence.(==) (enum_elements e1) (enum_elements e2)) *) ->
+  [@gospel {| requires true
+              ensures result <-> (Sequence.(==) (enum_elements e1) (enum_elements e2)) |}] ->
       if x1 = x2 then
         let (e13: enum) = mk_zipper r1 e11 in
         let (e23: enum) = mk_zipper r2 e22 in

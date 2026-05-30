@@ -70,10 +70,10 @@ let rec merge (t1: int tree) (t2: int tree) : int tree =
     | ((_: int tree), Empty) -> t1
     | (Node ((l1: int tree), (x1: int), (r1: int tree)),
        Node ((l2: int tree), (x2: int), (r2: int tree)))
-       (*@  requires heap t1 && heap t2
-            ensures  heap result
-            ensures  forall x. occ x result = occ x t1 + occ x t2
-            ensures  size result = size t1 + size t2 *)
+       [@gospel {| requires heap t1 && heap t2
+                    ensures  heap result
+                    ensures  forall x. occ x result = occ x t1 + occ x t2
+                    ensures  size result = size t1 + size t2 |}]
        -> if x1 < x2 then
          let (l: int tree) = merge r1 t2 in
          Node (l, x1, l1)

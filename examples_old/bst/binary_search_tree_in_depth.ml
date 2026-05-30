@@ -26,10 +26,10 @@ let rec insert (x: elt) (t: elt tree): elt tree =
   match (t: elt tree) with
   | Empty -> Node (Empty, x, Empty)
   | Node ((l: elt tree), (y: elt), (r: elt tree)) 
-      (*@ requires bst t
-          ensures  forall y. y <> x -> occ y result = occ y t
-          ensures  occ x result = occ x t || occ x result = 1 + occ x t
-          ensures  bst result *) ->
+      [@gospel {| requires bst t
+      ensures  forall y. y <> x -> occ y result = occ y t
+      ensures  occ x result = occ x t || occ x result = 1 + occ x t
+      ensures  bst result |}] ->
       if x = y then Node (l, y, r)
       else if x < y then 
         let (o1: elt tree) = insert x l in Node (o1, y, r)
@@ -42,8 +42,8 @@ let rec mem (x: elt) (t: elt tree) : bool =
   match (t: elt tree) with
   | Empty -> false
   | Node ((l: elt tree), (v: elt), (r: elt tree)) 
-      (*@ requires bst t
-          ensures  result <-> mem x t *) ->
+      [@gospel {| requires bst t
+                  ensures  result <-> mem x t|}] ->
       if x = v then true
       else if x < v then mem x l
       else mem x r
@@ -77,12 +77,12 @@ let rec remove_min (t: elt tree) : elt tree =
       match (l: elt tree) with 
       | (Empty: elt tree) -> r
       | (_: elt tree) 
-      (*@ requires bst t
-          requires size t > 0
-          ensures  occ (minimum t) result = occ (minimum t) t - 1
-          ensures  forall e. e <> minimum t -> occ e result = occ e t
-          ensures  size result = size t - 1
-          ensures  bst result *) -> 
-      let (o1: elt tree) = remove_min l in Node (o1, v, r)
+      [@gospel {| requires bst t
+      requires size t > 0
+      ensures  occ (minimum t) result = occ (minimum t) t - 1
+      ensures  forall e. e <> minimum t -> occ e result = occ e t
+      ensures  size result = size t - 1
+      ensures  bst result|}]  
+      -> let (o1: elt tree) = remove_min l in Node (o1, v, r)
 (*@ r = remove_min t
       variant  t *)

@@ -122,10 +122,10 @@ let rec find (t : tree) (k : key) : value option =
   (* | Leaf -> raise Not_found *)
   | Leaf -> None
   | Node ((_: color), (l: tree), (k': key), (v: value), (r: tree)) 
-    (*@ requires bst t 
-        ensures match result with 
-            | None -> forall v : value. not (memt t k v)
-            | Some res -> memt t k res *) ->
+    [@gospel {| requires bst t 
+                ensures match result with 
+                | None -> forall v : value. not (memt t k v)
+                | Some res -> memt t k res|}] ->
       if k = k' then Some v
       else if k < k' then find l k
       else find r k
@@ -223,13 +223,13 @@ let rec insert (t : tree) (k : key) (v : value) : tree =
     match (t: tree) with
     | Leaf -> Node (Red, Leaf, k, v, Leaf)
     | Node ((cl: color), (l: tree), (k': key), (v':value), (r:tree)) 
-        (*@ requires bst t /\ exists n: int. rbtree n t
-            ensures bst result /\
-                (forall n : int. rbtree n t -> almost_rbtree n result /\
-                    (is_not_red t -> rbtree n result)) /\
-                    memt result k v /\
-                    forall k':key, v':value.
-                        memt result k' v' <-> if k' = k then v' = v else memt t k' v' *) ->
+        [@gospel {| requires bst t /\ exists n: int. rbtree n t
+                    ensures bst result /\
+                        (forall n : int. rbtree n t -> almost_rbtree n result /\
+                            (is_not_red t -> rbtree n result)) /\
+                            memt result k v /\
+                            forall k':key, v':value.
+                                memt result k' v' <-> if k' = k then v' = v else memt t k' v'|}] ->
         begin 
             match (cl:color) with
             | Red -> 

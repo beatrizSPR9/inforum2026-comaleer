@@ -10,7 +10,6 @@ type heap_type = E | T of elt * elt tree
 
 (*@ axiom transitive: forall x y z. le x y -> le y z -> le x z *)
 
-
 (** Tree functions, predicates, lemmas *)
 (*@ function tree_size (t: 'a tree) : integer = match t with
       | Empty -> 0
@@ -79,36 +78,36 @@ type heap_type = E | T of elt * elt tree
 
 (*@ predicate is_minimum (x: elt) (h: heap_type) = mem x h && forall e. mem e h -> le x e *)
 
-(*@ lemma mem_heap_tree: forall t. heap_tree t -> forall x. le_root_tree x t -> forall y. mem_tree y t -> le x y *)
+(*@ lemma mem_heap_tree: forall t: elt tree. heap_tree t -> forall x. le_root_tree x t -> forall y. mem_tree y t -> le x y *)
 
-(*@ lemma mem_heap: forall h. heap h -> forall x. le_root x h -> forall y. mem y h -> le x y *)
+(*@ lemma mem_heap: forall h: heap_type. heap h -> forall x. le_root x h -> forall y. mem y h -> le x y *)
 
-(* let[@lemma] rec mem_heap_tree (t: elt tree) = 
-  match t with
+(* let [@lemma] rec mem_heap_tree (t: elt tree) = 
+  match (t: elt tree) with
   | Empty -> ()
-  | Node l _ r ->
+  | Node ((l: elt tree), (x: elt), (r: elt tree)) ->
       mem_heap_tree l;
-      mem_heap_tree r *)
+      mem_heap_tree r  *)
 (* @ mem_heap_tree t
     requires heap_tree t
     variant t
-    forall x. le_root_tree x t -> forall y. mem y t -> le x y *)
+    ensures forall x. le_root_tree x t -> forall y. mem_tree y t -> le x y *)
 
 (* let [@lemma] mem_heap (h: heap_type) = 
-  match h with
+  match (h: heap_type) with
   | E -> ()
-  | T _ r ->
+  | T ((_:elt), (r:elt tree)) ->
       mem_heap_tree r *)
 (* @ mem_heap h
     requires heap h
-    ensures forall x. le_root x h -> forall y. mem y h -> le x y *)
+    ensures forall x. le_root x h -> forall y. mem y h -> le x y*)
 
 (*@ lemma root_is_minimum: forall h: heap_type. heap h -> 0 < size h -> is_minimum (minimum h) h *)
 
 (** Pairing heaps specification *)
 
 let empty: heap_type = (E: heap_type)
-(* @ r = empty
+(*@ r = empty
       ensures heap r
       ensures size r = 0
       ensures forall e. not (mem e r) *)
@@ -130,7 +129,7 @@ let merge (h1: heap_type) (h2: heap_type) : heap_type =
         let (o1: elt tree) = Node (t2, x2, t1) in T (x1, o1)
        else
         let (o2: elt tree) = Node (t1, x1, t2) in T (x2, o2)
-(* @ r = merge h1 h2 
+(*@ r = merge h1 h2 
       requires heap h1 && heap h2 
       ensures  heap r
       ensures  forall x. occ x r = occ x h1 + occ x h2
@@ -138,7 +137,7 @@ let merge (h1: heap_type) (h2: heap_type) : heap_type =
 
 let insert (x: elt) (h: heap_type) : heap_type =
   merge (T (x, Empty)) h
-(* @ r = insert x h
+(*@ r = insert x h
       requires heap h
       ensures  heap r
       ensures  occ x r = occ x h + 1
@@ -149,7 +148,7 @@ let find_min (h: heap_type) : elt =
   match (h: heap_type) with
   | E -> assert false
   | T ((x: elt), (_: elt tree)) -> x
-(* @ r = find_min h
+(*@ r = find_min h
       requires heap h && 0 < size h
       ensures r = minimum h *)
 
@@ -159,32 +158,32 @@ let rec merge_pairs (t: elt tree) : heap_type =
   | Node ((l: elt tree), (x: elt), (r: elt tree)) ->
       match (r: elt tree) with
       | Empty -> T (x, l)
-      | Node ((l2: elt tree), (y: elt), (r2: elt tree)) 
-      (*@ requires heap_tree t
-          ensures  heap result
-          ensures  forall e. occ e result = tree_occ e t
-          ensures  size result = tree_size t *) ->
+      | Node ((l2: elt tree), (y: elt), (r2: elt tree)) ->
         let (h1: heap_type) = T (x, l) in
         let (h2: heap_type) = T (y, l2) in
         let (mp: heap_type) = merge_pairs r2 in
         let (m: heap_type) = merge h1 h2 in
         merge m mp
 (*@ r = merge_pairs t
-      variant  tree_size t*)
+        requires heap_tree t
+        ensures  heap r
+        ensures  forall e. occ e r = tree_occ e t
+        ensures  size r = tree_size t
+        variant  tree_size t*)
 
 let delete_min (h: heap_type) : heap_type =
   match (h: heap_type) with
   | E -> assert false
   | T ((_: elt), (t: elt tree)) -> merge_pairs t
-(* @ r = delete_min h
+(*@ r = delete_min h
       requires heap h && 0 < size h 
       ensures heap r
       ensures occ (minimum h) r = occ (minimum h) h - 1
       ensures forall e. e <> minimum h -> occ e r = occ e h 
-      ensures size r = size h - 1*)
+      ensures size r = size h - 1 *)
 
 (** Client code*)
-      
+
 (* let main1 : heap_type =
   let (h1: heap_type) = insert 1 E in
   let (h2: heap_type) = insert 2 E in
