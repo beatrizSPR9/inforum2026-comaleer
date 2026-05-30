@@ -83,7 +83,7 @@ var CASE_STUDIES = [
   {
     id: "bst",
     title: "Binary Search Tree",
-    description: "Pure BST with insert, member, and delete.",
+    description: "Pure BST with insert, member, and removals.",
     topLevelLines: 45,
     inDepthLines:  42,
     topLevelPath: "examples/bst/binary_search_tree_top_level.ml",
@@ -93,7 +93,7 @@ var CASE_STUDIES = [
   {
     id: "leftist_heaps",
     title: "Leftist Heaps",
-    description: "Functional priority queue with logarithmic merge.",
+    description: "Priority queue implemented with a variant of a binary heap.",
     topLevelLines: 73,
     inDepthLines:  41,
     topLevelPath: "examples/leftist_heaps/leftist_heaps_top_level.ml",
@@ -103,7 +103,7 @@ var CASE_STUDIES = [
   {
     id: "pairing_heaps",
     title: "Pairing Heaps",
-    description: "Functional priority queue with efficient merge operation.",
+    description: "Priority queue implemented using binary trees.",
     topLevelLines: 78,
     inDepthLines:  54,
     topLevelPath: "examples/pairing_heaps/pairing_heaps_top_level.ml",
@@ -121,7 +121,7 @@ var CASE_STUDIES = [
   {
     id: "same_fringe",
     title: "Same Fringe",
-    description: "Determines if two binary trees have the same sequence of leaves.",
+    description: "Determines if two binary trees have the same elements.",
     topLevelLines: 17,
     inDepthLines:  14,
     topLevelPath: "examples/same_fringe/same_fringe_top_level.ml",
@@ -130,7 +130,7 @@ var CASE_STUDIES = [
   {
     id: "skew_heaps",
     title: "Skew Heaps",
-    description: "Functional priority queue with efficient merge operation.",
+    description: "Self-adjusting heap implemented with binary trees, optimized for fast merges.",
     topLevelLines: 48,
     inDepthLines:  27,
     topLevelPath: "examples/skew_heaps/skew_heaps_top_level.ml",
