@@ -11,15 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
   document.getElementById("hero-thesis-title").textContent = SITE.thesisTitle;
   document.getElementById("hero-badge-year").textContent   = SITE.year;
 
-  // Footer
-  document.getElementById("footer-author").textContent      = SITE.author;
-  document.getElementById("footer-institution").textContent = SITE.institution;
-  document.getElementById("footer-thesis-link").href        = SITE.thesisUrl;
-  document.getElementById("footer-repo-link").href          = SITE.repoUrl;
-  document.getElementById("footer-email-link").href         = "mailto:" + SITE.email;
-  document.getElementById("footer-email-link").textContent  = SITE.email;
-  document.getElementById("footer-copyright").textContent   = "© " + SITE.year + " " + SITE.author;
-
   // ── Tools ──────────────────────────────────────────────────────────────────
 
   var toolsGrid = document.getElementById("tools-grid");

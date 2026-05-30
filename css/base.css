@@ -117,7 +117,7 @@ img, svg {
    Section header (eyebrow + title + description)
    --------------------------------------------------------------------------- */
 .section-header {
-  max-width: 42rem;
+  /* max-width: 42rem; */
 }
 
 .section-header__eyebrow {
