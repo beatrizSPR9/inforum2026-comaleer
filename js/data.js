@@ -59,7 +59,7 @@ var STEPS = [
   {
     title: "Cameleer installation",
     description: "Clone the Cameleer repository, pin the required version of cmdliner, and install Cameleer along with all its dependencies (Why3, GOSPEL, solvers). Then verify the installation.",
-    code: "git clone https://github.com/ocaml-gospel/cameleer.git\ncd cameleer\nopam pin add cmdliner 1.3.0 && opam pin add .\ncameleer --version"
+    code: "git clone https://github.com/ocaml-gospel/cameleer.git\ncd cameleer\ngit checkout coma\nopam pin add cmdliner 1.3.0 && opam pin add .\ncameleer --version"
   },
   {
     title: "Run an example",
