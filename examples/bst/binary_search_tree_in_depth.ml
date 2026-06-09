@@ -18,9 +18,6 @@ type elt = int
       bst l && bst r *)
 
 let empty: elt tree = (Empty: elt tree)
-(* @ r = empty
-      ensures forall x. occ x r = 0
-      ensures bst r *)
 
 let rec insert (x: elt) (t: elt tree): elt tree =
   match (t: elt tree) with

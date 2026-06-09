@@ -176,13 +176,6 @@ let lbalance (l : tree) (k : key) (v : value) (r : tree) : tree =
             | ((_: color), (_: tree), (_: tree)) -> Node (Black, l, k, v, r)
         end
     | (_: tree) -> Node (Black, l, k, v, r)
-(* @ result = lbalance l k v r
-    requires lt_tree k l /\ gt_tree k r /\ bst l /\ bst r
-    ensures bst result /\
-      (forall n : int. almost_rbtree n l -> rbtree n r -> rbtree (n+1) result) /\
-      forall k':key, v':value.
-        memt result k' v' <->
-        if k' = k then v' = v else (memt l k' v' \/ memt r k' v') *)
 
 let rbalance (l : tree) (k : key) (v : value) (r : tree) : tree= 
     match (r: tree) with
@@ -211,13 +204,6 @@ let rbalance (l : tree) (k : key) (v : value) (r : tree) : tree=
             | ((_: color), (_: tree), (_: tree)) -> Node (Black, l, k, v, r)
         end
     | (_: tree) -> Node (Black, l, k, v, r)
-(* @ result = rbalance l k v r
-    requires lt_tree k l /\ gt_tree k r /\ bst l /\ bst r
-    ensures bst result /\
-      (forall n : int. almost_rbtree n r -> rbtree n l -> rbtree (n+1) result) /\
-      forall k':key, v':value.
-        memt result k' v' <->
-        if k' = k then v' = v else (memt l k' v' \/ memt r k' v') *)
 
 let rec insert (t : tree) (k : key) (v : value) : tree = 
     match (t: tree) with
@@ -257,10 +243,3 @@ let add (t : tree) (k : key) (v : value) : tree =
     match (o1: tree) with
     | Leaf -> assert false
     | Node ((_: color), (l: tree), (k': key), (v': value), (r: tree)) -> Node (Black, l, k', v', r)  
-(* @ result = add t k v
-    requires bst t /\ exists n:int. rbtree n t
-    ensures bst result /\ (exists n:int. rbtree n result) /\
-        memt result k v /\
-        forall k':key, v':value.
-        memt result k' v' <-> if k' = k then v' = v else memt t k' v' *)
-        

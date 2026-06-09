@@ -45,21 +45,6 @@ type elt = int
 
 (*@ lemma root_is_minimum: forall t. is_heap t -> size t > 0 -> is_minimum (minimum t) t *)
 
-(* let [@lemma] rec root_is_minimum (t: elt tree) : unit =
-  match (t: elt tree) with
-  | Empty -> assert false
-  | Node ((_: int), (l: elt tree), (x: elt), (r: elt tree)) ->
-      match (l: elt tree) with 
-      | Empty -> ()
-      | (_: elt tree) -> root_is_minimum l;
-      match (r: elt tree) with
-      | Empty -> ()
-      | (_: elt tree) -> root_is_minimum r;  *)
-(* @ root_is_minimum t
-    requires is_heap t && size t > 0
-    variant t
-    ensures is_minimum (minimum t) t *)
-
 (*@ function min (x y: int) : int = if x <= y then x else y *)
 
 (*@ function max (x y: int) : int = if x <= y then y else x *)
@@ -79,13 +64,6 @@ let empty: elt tree = (Empty: elt tree)
       ensures leftist_heap r
       ensures size r = 0
       ensures forall x. occ x r = 0 *)
-
-(* let[@logic] is_empty (t: elt tree) : bool =
-  match (t: elt tree) with
-  | Empty -> true
-  | (_: elt tree) -> false *)
-(* @ r = is_empty t
-      ensures r <-> size t = 0 *)
 
 let rank (t: elt tree) : int =
   match (t: elt tree) with

@@ -83,43 +83,12 @@ type heap_type = E | T of elt * elt tree
 
 (*@ lemma mem_heap: forall h. heap h -> forall x. le_root x h -> forall y. mem y h -> le x y *)
 
-(* let[@lemma] rec mem_heap_tree (t: elt tree) = 
-  match t with
-  | Empty -> ()
-  | Node l _ r ->
-      mem_heap_tree l;
-      mem_heap_tree r *)
-(* @ mem_heap_tree t
-    requires heap_tree t
-    variant t
-    forall x. le_root_tree x t -> forall y. mem y t -> le x y *)
-
-(* let [@lemma] mem_heap (h: heap_type) = 
-  match h with
-  | E -> ()
-  | T _ r ->
-      mem_heap_tree r *)
-(* @ mem_heap h
-    requires heap h
-    ensures forall x. le_root x h -> forall y. mem y h -> le x y *)
-
 (*@ lemma root_is_minimum: forall h: heap_type. heap h -> 0 < size h -> is_minimum (minimum h) h *)
 
 (** Pairing heaps specification *)
 
 let empty: heap_type = (E: heap_type)
-(* @ r = empty
-      ensures heap r
-      ensures size r = 0
-      ensures forall e. not (mem e r) *)
       
-(* let[@logic] is_empty (h: heap_type) : bool =
-  match (h: heap_type) with
-  | E -> true
-  | (_: heap_type) -> false *)
-(* @ r = is_empty h
-      ensures r <-> size h = 0 *)
-
 let merge (h1: heap_type) (h2: heap_type) : heap_type =
     match (h1 : heap_type), (h2 : heap_type) with
     | (E, (_: heap_type)) -> h2
@@ -130,28 +99,14 @@ let merge (h1: heap_type) (h2: heap_type) : heap_type =
         let (o1: elt tree) = Node (t2, x2, t1) in T (x1, o1)
        else
         let (o2: elt tree) = Node (t1, x1, t2) in T (x2, o2)
-(* @ r = merge h1 h2 
-      requires heap h1 && heap h2 
-      ensures  heap r
-      ensures  forall x. occ x r = occ x h1 + occ x h2
-      ensures  size r = size h1 + size h2*)
 
 let insert (x: elt) (h: heap_type) : heap_type =
   merge (T (x, Empty)) h
-(* @ r = insert x h
-      requires heap h
-      ensures  heap r
-      ensures  occ x r = occ x h + 1
-      ensures  forall y. x <> y -> occ y r = occ y h
-      ensures  size r = size h + 1 *)
 
 let find_min (h: heap_type) : elt =
   match (h: heap_type) with
   | E -> assert false
   | T ((x: elt), (_: elt tree)) -> x
-(* @ r = find_min h
-      requires heap h && 0 < size h
-      ensures r = minimum h *)
 
 let rec merge_pairs (t: elt tree) : heap_type =
   match (t: elt tree) with
@@ -176,52 +131,3 @@ let delete_min (h: heap_type) : heap_type =
   match (h: heap_type) with
   | E -> assert false
   | T ((_: elt), (t: elt tree)) -> merge_pairs t
-(* @ r = delete_min h
-      requires heap h && 0 < size h 
-      ensures heap r
-      ensures occ (minimum h) r = occ (minimum h) h - 1
-      ensures forall e. e <> minimum h -> occ e r = occ e h 
-      ensures size r = size h - 1*)
-
-(** Client code*)
-      
-(* let main1 : heap_type =
-  let (h1: heap_type) = insert 1 E in
-  let (h2: heap_type) = insert 2 E in
-  let (h3: heap_type) = merge h1 h2 in
-  delete_min h3 *)
-(* @ r = main1
-      requires true
-      ensures heap r
-      ensures is_minimum 2 r *)
-
-(* Insert duplicates and then remove one of them *)
-(* let main2 : elt =
-  let (h1: heap_type) = insert 1 E in
-  let (h1: heap_type) = insert 2 h1 in
-  let (h1: heap_type) = insert 1 h1 in
-  let (h1: heap_type) = delete_min h1 in
-  find_min h1 *)
-(* @ r = main2
-      requires true
-      ensures r = 1 *)
-
-(* let main3 : elt =
-  let (h1: heap_type) = insert 1 E in
-  let (h1: heap_type) = insert 2 h1 in
-  let (h1: heap_type) = insert 3 h1 in
-  let (h1: heap_type) = delete_min h1 in
-  find_min h1 *)
-(* @ r = main3
-      requires true
-      ensures r = 2 *)
-
-
-(* let main4 : elt =
-  let (h1: heap_type) = insert 1 E in
-  let (h1: heap_type) = insert 2 h1 in
-  find_min h1 *)
-(* @ r = main4
-      requires true
-      ensures r = 1 *)
-
